@@ -1,0 +1,50 @@
+﻿@model Actor
+@{
+    ViewData["Title"] = "Delete an Actor";
+}
+<div class="row text-black">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Delete Confirmation for @Model.FullName</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group text-center">
+                    <img id="ProfilePicturePreview" class="border-info rounded-circle" />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="ProfilePicture" class="control-label"></label>
+                    <input asp-for="ProfilePicture" class="form-control" readonly />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" readonly />
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Bio" class="control-label"></label>
+                    <input asp-for="Bio" class="form-control" readonly />
+                </div>
+                <div class="form-group mb-3">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Confirm" class="btn btn-danger float-right mb-3"/>
+                    </form>
+
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#ProfilePicture").on("change", function () {
+                var output = document.getElementById("ProfilePicturePreview");
+                output.src = $("#ProfilePicture").val();
+            })
+        })
+    </script>
+}
