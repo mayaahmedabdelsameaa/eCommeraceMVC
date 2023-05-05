@@ -1,6 +1,6 @@
 ﻿namespace eCommerace.Data.Enums
 {
-    public enum MovieCatogory
+    public enum MovieCategory
     {
         Action = 1,
         Comedy,

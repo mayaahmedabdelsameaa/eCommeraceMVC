@@ -26,8 +26,11 @@
                     <div class="col-md-6">
                         <div class="card-body">
                             <p class="card-text">@item.Description</p>
-                            <p class="card-text"><b>Cinema: </b>@item.Cinema.Name</p>
-                            <p class="card-text"><b>Category: </b>@item.MovieCatogory</p>
+                            @if (@item.Cinema != null)
+                            {
+                                <p class="card-text"><b>Cinema: </b>@item.Cinema.Name</p>
+                            }
+                            <p class="card-text"><b>Category: </b>@item.MovieCategory</p>
                             <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
                             <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
                             <p class="card-text ">
@@ -64,3 +67,5 @@
         </div>
     }
 </div>
+
+@*@await Html.PartialAsync("_CreateItem","Movies");*@

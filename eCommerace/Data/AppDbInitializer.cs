@@ -143,7 +143,7 @@ namespace eCommerace.Data
                             EndDate = DateTime.Now.AddDays(10),
                             CinemaId = 3,
                             ProducerId = 3,
-                            MovieCatogory = MovieCatogory.Documentary
+                            MovieCategory = MovieCategory.Documentary
                         },
                         new Movie()
                         {
@@ -155,7 +155,7 @@ namespace eCommerace.Data
                             EndDate = DateTime.Now.AddDays(3),
                             CinemaId = 1,
                             ProducerId = 1,
-                            MovieCatogory = MovieCatogory.Action
+                            MovieCategory = MovieCategory.Action
                         },
                         new Movie()
                         {
@@ -167,7 +167,7 @@ namespace eCommerace.Data
                             EndDate = DateTime.Now.AddDays(7),
                             CinemaId = 4,
                             ProducerId = 4,
-                            MovieCatogory = MovieCatogory.Horror
+                            MovieCategory = MovieCategory.Horror
                         },
                         new Movie()
                         {
@@ -179,7 +179,7 @@ namespace eCommerace.Data
                             EndDate = DateTime.Now.AddDays(-5),
                             CinemaId = 1,
                             ProducerId = 2,
-                            MovieCatogory = MovieCatogory.Documentary
+                            MovieCategory = MovieCategory.Documentary
                         },
                         new Movie()
                         {
@@ -191,7 +191,7 @@ namespace eCommerace.Data
                             EndDate = DateTime.Now.AddDays(-2),
                             CinemaId = 1,
                             ProducerId = 3,
-                            MovieCatogory = MovieCatogory.Cartoon
+                            MovieCategory = MovieCategory.Cartoon
                         },
                         new Movie()
                         {
@@ -203,7 +203,7 @@ namespace eCommerace.Data
                             EndDate = DateTime.Now.AddDays(20),
                             CinemaId = 1,
                             ProducerId = 5,
-                            MovieCatogory = MovieCatogory.Drama
+                            MovieCategory = MovieCategory.Drama
                         }
                     });
                     context.SaveChanges();
