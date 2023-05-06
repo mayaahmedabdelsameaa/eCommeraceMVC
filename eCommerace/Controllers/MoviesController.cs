@@ -2,6 +2,7 @@
 using eCommerace.Data.Services;
 using eCommerace.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -20,23 +21,31 @@ namespace eCommerace.Controllers
             return View(allMovies);
         }
         // Get: Movies/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var movieDropdownData = await _service.GetNewMovieDropdownValues();
+            ViewBag.Cinemas = new SelectList(movieDropdownData.Cinemas, "Id", "Name");
+            ViewBag.Producers = new SelectList(movieDropdownData.Producers, "Id", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownData.Actors, "Id", "FullName");
             return View();
         }
         // Post: Movies/Create 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Name, Description,Price,ImageURL,StartDate,EndDate,MovieCategory")] Movie movie)
+        public async Task<IActionResult> Create(NewMovieVM movie)
         {
             if (!ModelState.IsValid)
             {
+                var movieDropdownData = await _service.GetNewMovieDropdownValues();
+                ViewBag.Cinemas = new SelectList(movieDropdownData.Cinemas, "Id", "Name");
+                ViewBag.Producers = new SelectList(movieDropdownData.Producers, "Id", "FullName");
+                ViewBag.Actors = new SelectList(movieDropdownData.Actors, "Id", "FullName");
                 return View(movie);
             }
-            await _service.Add(movie);
+            await _service.AddNewMovie(movie);
             return RedirectToAction(nameof(Index));
         }
 
-        //Get: Movies/details/id
+        //Get: Movies/Details/id
         public async Task<IActionResult> Details(int id)
         {
             var MovieDetails = await _service.GetByID(id);
