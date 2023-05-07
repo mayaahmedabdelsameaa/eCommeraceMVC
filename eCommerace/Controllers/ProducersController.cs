@@ -1,11 +1,14 @@
 ﻿using eCommerace.Data;
 using eCommerace.Data.Services;
+using eCommerace.Data.Static;
 using eCommerace.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerace.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class ProducersController : Controller
     {
         private readonly IProducersService _service;
@@ -13,6 +16,8 @@ namespace eCommerace.Controllers
         {
             _service = service;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allProducers = await _service.GettAll();
@@ -36,6 +41,7 @@ namespace eCommerace.Controllers
         }
 
         //Get: Producer/details/id
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var producerDetails = await _service.GetByID(id);

@@ -6,11 +6,9 @@ namespace eCommerace.Models
     {
         public int MovieId { get; set; }
 
-        //[ForeignKey("Movie")]
         public Movie Movie { get; set; }
         public int ActorId { get; set; }
 
-        //[ForeignKey("Actor")]
         public Actor Actor { get; set; }
     }
 }

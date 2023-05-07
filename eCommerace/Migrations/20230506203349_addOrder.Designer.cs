@@ -12,8 +12,8 @@ using eCommerace.Data;
 namespace eCommerace.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20230504005631_edit")]
-    partial class edit
+    [Migration("20230506203349_addOrder")]
+    partial class addOrder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,7 +113,7 @@ namespace eCommerace.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MovieCatogory")
+                    b.Property<int>("MovieCategory")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -137,6 +137,56 @@ namespace eCommerace.Migrations
                     b.HasIndex("ProducerId");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("eCommerace.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("eCommerace.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("eCommerace.Models.Producer", b =>
@@ -203,6 +253,25 @@ namespace eCommerace.Migrations
                     b.Navigation("Producer");
                 });
 
+            modelBuilder.Entity("eCommerace.Models.OrderItem", b =>
+                {
+                    b.HasOne("eCommerace.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eCommerace.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("eCommerace.Models.Actor", b =>
                 {
                     b.Navigation("Actor_Movies");
@@ -216,6 +285,11 @@ namespace eCommerace.Migrations
             modelBuilder.Entity("eCommerace.Models.Movie", b =>
                 {
                     b.Navigation("Actor_Movies");
+                });
+
+            modelBuilder.Entity("eCommerace.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("eCommerace.Models.Producer", b =>

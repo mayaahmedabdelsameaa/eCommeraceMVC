@@ -1,12 +1,15 @@
 ﻿using eCommerace.Data;
 using eCommerace.Data.Services;
+using eCommerace.Data.Static;
 using eCommerace.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace eCommerace.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class CinemasController : Controller
     {
         private readonly ICinemasService _service;
@@ -14,6 +17,8 @@ namespace eCommerace.Controllers
         {
             _service = service;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allCinemas = await _service.GettAll();
@@ -36,6 +41,7 @@ namespace eCommerace.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         //Get: Cinemas/details/id
         public async Task<IActionResult> Details(int id)
         {

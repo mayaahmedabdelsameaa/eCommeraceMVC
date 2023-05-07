@@ -17,6 +17,6 @@ namespace eCommerace.Models
         public string Description { get; set; }
 
         // relationships
-        public List<Movie>? Movies { get; set; }
+        public List<Movie> Movies { get; set; }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using eCommerace.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerace.Data
 {
-    public class AppDBContext:DbContext
+    public class AppDBContext:IdentityDbContext<ApplicationUser>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options):base(options)
         {}
@@ -31,5 +32,10 @@ namespace eCommerace.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor_Movie> Actor_Movies { get; set; }
         public DbSet<Producer> Producers { get; set; }
+        
+        //order 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

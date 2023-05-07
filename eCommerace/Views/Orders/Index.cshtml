@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "All Orders";
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <h4>List of all your orders</h4>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <th>User</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td class="align-middle"><i class="bi bi-cart-check"></i></td>
+                        <td class="align-middle">
+                            <ul class="list-unstyled">
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li>
+                                        <div class="alert alert-info" role="alert">
+                                            <span class="badge bg-success">@item.Amount</span>[@item.Price.ToString("c")] - @item.Movie.Name
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+                        <td class="align-middle">
+                            @order.OrderItems.Select(t => t.Movie.Price * t.Amount).Sum().ToString("c");
+                        </td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td class="align-middle"> @order.User.FullName </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

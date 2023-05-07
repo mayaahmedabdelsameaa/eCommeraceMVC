@@ -7,6 +7,7 @@ namespace eCommerace.Models
 {
     public class NewMovieVM
     {
+        public int Id { get; set; }
         [Required(ErrorMessage ="Name is required")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "The name must be 3 characters to 50")]
         [Display(Name ="Name")]

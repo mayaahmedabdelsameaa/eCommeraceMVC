@@ -31,13 +31,11 @@ namespace eCommerace.Models
         //relarionships
         public List<Actor_Movie> Actor_Movies { get; set; }
         public int ProducerId { get; set; }
-        
-        //[ForeignKey("Producer")]
+
         public Producer Producer { get; set; }
 
         public int CinemaId { get; set; }
 
-        //[ForeignKey("Cinema")]
         public Cinema Cinema { get; set; }
     }
 }

@@ -1,19 +1,24 @@
 ﻿using eCommerace.Data;
 using eCommerace.Data.Services;
+using eCommerace.Data.Static;
 using eCommerace.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace eCommerace.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class ActorsController : Controller
     {
+        
         private readonly IActorsService _service;
         public ActorsController(IActorsService service)
         {
             _service = service;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allActors = await _service.GettAll();
@@ -35,7 +40,8 @@ namespace eCommerace.Controllers
             await _service.Add(actor);
             return RedirectToAction(nameof(Index));
         }
-        
+
+        [AllowAnonymous]
         //Get: Actors/details/id
         public async Task<IActionResult> Details(int id)
         {

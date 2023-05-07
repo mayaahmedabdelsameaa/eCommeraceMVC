@@ -10,5 +10,6 @@ namespace eCommerace.Data.Services
         Task<Movie> GetMovieById(int id);
         Task<NewMovieDropdownVM> GetNewMovieDropdownValues();
         Task AddNewMovie(NewMovieVM data);
+        Task Update(NewMovieVM data);
     }
 }

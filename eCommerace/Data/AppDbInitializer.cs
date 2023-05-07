@@ -1,5 +1,7 @@
 ﻿using eCommerace.Data.Enums;
+using eCommerace.Data.Static;
 using eCommerace.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace eCommerace.Data
 {
@@ -309,6 +311,53 @@ namespace eCommerace.Data
                     });
                     context.SaveChanges();
                 }
+            }
+        }
+        public static async Task SeedUsersAndRoles(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                // Roles (create)
+                var roleManger = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                if (!await roleManger.RoleExistsAsync(UserRoles.Admin))
+                    await roleManger.CreateAsync(new IdentityRole(UserRoles.Admin));
+                if (!await roleManger.RoleExistsAsync(UserRoles.User))
+                    await roleManger.CreateAsync(new IdentityRole(UserRoles.User));
+                // Useres (create)
+
+                // define the Admin Email 
+                string AdminEmail = "admin@ecommerce.com";
+                var userManger = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var adminUser = await userManger.FindByEmailAsync(AdminEmail);
+                if (adminUser == null)
+                {
+                    var newAdminUser = new ApplicationUser()
+                    {
+                        FullName = "Admin User",
+                        UserName = "app-admin",
+                        Email = AdminEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManger.CreateAsync(newAdminUser, "Coding@123?");
+                    await userManger.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                }
+
+                // define the Admin Email 
+                string UserEmail = "user@ecommerce.com";
+                var appUser = await userManger.FindByEmailAsync(UserEmail);
+                if (appUser == null)
+                {
+                    var newAppUser = new ApplicationUser()
+                    {
+                        FullName = "Application User",
+                        UserName = "app-user",
+                        Email = UserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManger.CreateAsync(newAppUser, "Coding@123?");
+                    await userManger.AddToRoleAsync(newAppUser, UserRoles.User);
+                }
+
             }
         }
     }
