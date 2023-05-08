@@ -67,15 +67,6 @@ namespace eCommerace.Controllers
 
         //Get: Movies/Details/id
         [AllowAnonymous]
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    var MovieDetails = await _service.GetByID(id, n => n.Cinema, n=>n.Producer, n=>n.Actor_Movies.Select(am=>am.Actor));
-        //    if (MovieDetails == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    return View(MovieDetails);
-        //}
 
         public async Task<IActionResult> Details(int id)
         {

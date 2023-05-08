@@ -26,15 +26,6 @@ namespace eCommerace.Data.Base
             await _context.SaveChangesAsync();
         }
 
-        //public async Task<T> GetByID(int id, params Expression<Func<T, object>>[] includes)
-        //{
-        //    var query = _context.Set<T>().AsQueryable();
-        //    if (includes != null)
-        //    {
-        //        query = includes.Aggregate(query, (current, include) => current.Include(include));
-        //    }
-        //    return await query.FirstOrDefaultAsync(e => e.Id == id);
-        //}
         public async Task<T> GetByID(int id, params Expression<Func<T, object>>[] includes)
         {
             var query = _context.Set<T>().AsQueryable();
@@ -47,9 +38,6 @@ namespace eCommerace.Data.Base
             return entity;
         }
 
-        //public async Task<T> GetByID(int id, , params Expression<Func<T, object>>[] includes) => await _context.Set<T>().FirstOrDefaultAsync(e=>e.Id==id);
-
-        //public async Task<IEnumerable<T>> GettAll() =>await _context.Set<T>().ToListAsync();
         public async Task<IEnumerable<T>> GettAll(Expression<Func<T, object>> include = null)
         {
             IQueryable<T> query = _context.Set<T>();
