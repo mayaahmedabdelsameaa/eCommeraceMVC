@@ -1,11 +1,12 @@
 ﻿using eCommerace.Models;
+using System.Linq.Expressions;
 
 namespace eCommerace.Data.Base
 {
     public interface IEntityBaseRepository<T> where T:class, IEntityBase, new()
     {
         // get all actors 
-        Task<IEnumerable<T>> GettAll();
+        Task<IEnumerable<T>> GettAll(Expression<Func<T, object>> include = null);
 
         // get actor by id
         Task<T> GetByID(int id);

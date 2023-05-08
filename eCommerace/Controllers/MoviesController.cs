@@ -21,7 +21,7 @@ namespace eCommerace.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var allMovies = await _service.GettAll();
+            var allMovies = await _service.GettAll(n => n.Cinema);
             return View(allMovies);
         }
         [AllowAnonymous]
