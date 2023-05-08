@@ -9,7 +9,7 @@ namespace eCommerace.Data.Base
         Task<IEnumerable<T>> GettAll(Expression<Func<T, object>> include = null);
 
         // get actor by id
-        Task<T> GetByID(int id);
+        Task<T> GetByID(int id,  params Expression<Func<T, object>>[] includes);
 
         // add an actor 
         Task Add(T entity);

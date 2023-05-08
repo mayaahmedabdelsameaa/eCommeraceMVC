@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace eCommerace.Controllers
 {
-    [Authorize(Roles =UserRoles.Admin)]
+    [Authorize(Roles = UserRoles.Admin)]
     public class MoviesController : Controller
     {
         private readonly IMoviesService _service;
@@ -27,17 +27,17 @@ namespace eCommerace.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
-            var allMovies = await _service.GettAll();
+            var allMovies = await _service.GettAll(n => n.Cinema);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 var filteredResult = allMovies
-                    .Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || 
-                    n.Description.ToLower().Contains(searchString.ToLower())).ToList(); 
+                    .Where(n => n.Name.ToLower().Contains(searchString.ToLower()) ||
+                    n.Description.ToLower().Contains(searchString.ToLower())).ToList();
                 return View("Index", filteredResult);
             }
 
-            return View("Index",allMovies);
+            return View("Index", allMovies);
         }
 
         // Get: Movies/Create
@@ -67,9 +67,19 @@ namespace eCommerace.Controllers
 
         //Get: Movies/Details/id
         [AllowAnonymous]
+        //public async Task<IActionResult> Details(int id)
+        //{
+        //    var MovieDetails = await _service.GetByID(id, n => n.Cinema, n=>n.Producer, n=>n.Actor_Movies.Select(am=>am.Actor));
+        //    if (MovieDetails == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+        //    return View(MovieDetails);
+        //}
+
         public async Task<IActionResult> Details(int id)
         {
-            var MovieDetails = await _service.GetByID(id);
+            var MovieDetails = await _service.GetMovieById(id);
             if (MovieDetails == null)
             {
                 return View("NotFound");
