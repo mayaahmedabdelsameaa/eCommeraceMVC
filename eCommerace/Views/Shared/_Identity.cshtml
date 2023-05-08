@@ -30,6 +30,14 @@ else
                     </a>
                 </li>
             }
+            @if (User.IsInRole("User"))
+            {
+                <li>
+                    <a class="dropdown-item" asp-controller="Orders" asp-action="ShoppingCart">
+                        <i class="bi bi-cart-plus"></i> View my shopping cart
+                    </a>
+                </li>
+            }
         </ul>
     </div>
 
