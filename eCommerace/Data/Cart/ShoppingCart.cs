@@ -78,6 +78,8 @@ namespace eCommerace.Data.Cart
             var items = _context.ShoppingCartItems.Where(s => s.ShoppingCartId == ShoppingCartId).ToList();
             _context.ShoppingCartItems.RemoveRange(items);
             await _context.SaveChangesAsync();
+
+            ShoppingCartItems = new List<ShoppingCartItem>();
         }
 
     }

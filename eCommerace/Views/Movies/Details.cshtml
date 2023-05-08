@@ -79,7 +79,7 @@
                 <div class="col-md-12">
                     <div class="card-footer ">
                         <p class="card-text d-flex justify-content-center">
-                            <a class="btn btn-success text-white me-1" asp-controller="Orders"
+                            <a class="btn btn-success text-white me-1  @((DateTime.Now > Model.EndDate) ? "disabled" : "")" asp-controller="Orders"
                                asp-action="AddItemToShoppingCart"
                                asp-route-id="@Model.Id">
                                 <i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))
